@@ -1,4 +1,21 @@
+// ------------------------------------
+// MODULE 4 — GOBLIN DICTIONARY
+// ------------------------------------
+
+const goblinDictionary = {
+    "thenga": "🥥",
+    "chaya": "☕",
+    "amma": "❤️",
+    "exam": "💀"
+};
+
+
+// ------------------------------------
+// MODULE 2 — CREATE GOBLIN
+// ------------------------------------
+
 function createGoblin() {
+
     if (document.getElementById("manglish-goblin")) {
         return;
     }
@@ -11,6 +28,7 @@ function createGoblin() {
 
     const image = document.createElement("img");
     image.id = "goblin-character";
+
     image.src = chrome.runtime.getURL("assets/goblin.png");
     image.alt = "Manglish Goblin";
 
@@ -23,7 +41,12 @@ function createGoblin() {
 }
 
 
+// ------------------------------------
+// SHOW MESSAGE
+// ------------------------------------
+
 function showMessage(message) {
+
     const bubble = document.getElementById("goblin-bubble");
 
     if (!bubble) {
@@ -35,7 +58,12 @@ function showMessage(message) {
 }
 
 
+// ------------------------------------
+// GOBLIN INTRODUCTION
+// ------------------------------------
+
 function introduceGoblin() {
+
     setTimeout(() => {
         showMessage("Hey! I'm your Manglish Goblin.");
     }, 500);
@@ -43,7 +71,7 @@ function introduceGoblin() {
 
 
 // ------------------------------------
-// MODULE 3 — DETECT COMPLETED WORD
+// MODULE 3 — DETECT WORDS
 // ------------------------------------
 
 document.addEventListener("input", function(event) {
@@ -60,22 +88,28 @@ document.addEventListener("input", function(event) {
 
     const text = element.value;
 
-    // Check if the user just typed a space
+    // --------------------------------
+    // CURRENT WORD
+    // --------------------------------
+
+    const words = text.trim().split(/\s+/);
+
+    const currentWord = words[words.length - 1];
+
+    console.log("Current word:", currentWord);
+
+
+    // --------------------------------
+    // COMPLETED WORD
+    // --------------------------------
+
     if (text.endsWith(" ")) {
 
-        // Remove the final space
-        const textWithoutSpace = text.trim();
-
-        // Split the text into words
-        const words = textWithoutSpace.split(/\s+/);
-
-        // Get the last completed word
-        const completedWord = words[words.length - 1];
+        const completedWord = currentWord;
 
         console.log("Completed word:", completedWord);
     }
 });
-
 
 // ------------------------------------
 // LISTEN FOR GOBLIN ACTIVATION

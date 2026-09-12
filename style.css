@@ -15,7 +15,31 @@
 }
 
 
-/* Goblin speech bubble */
+/* ------------------------------------
+   GOBLIN CONTAINER
+------------------------------------ */
+
+#manglish-goblin {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+
+    z-index: 2147483647;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* ------------------------------------
+   GOBLIN SPEECH BUBBLE
+------------------------------------ */
+
 #goblin-bubble {
     max-width: 240px;
 
@@ -41,6 +65,56 @@
     transition:
         opacity 0.25s ease,
         transform 0.25s ease;
+}
+
+
+/* Show speech bubble */
+
+#goblin-bubble.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* ------------------------------------
+   GOBLIN IMAGE
+------------------------------------ */
+
+#goblin-character {
+    width: 120px;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* ------------------------------------
+   MODULE 5 — EMOJI
+------------------------------------ */
+
+#goblin-emoji {
+    font-size: 48px;
+    line-height: 1;
+
+    opacity: 0;
+
+    transform: translateY(10px) scale(0.7);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Show emoji */
+
+#goblin-emoji.visible {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
 }
 
 
