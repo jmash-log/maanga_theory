@@ -1,18 +1,75 @@
-// ------------------------------------
-// MODULE 4 — GOBLIN DICTIONARY
-// ------------------------------------
+// ===============================
+// GOBLIN DICTIONARY
+// ===============================
 
 const goblinDictionary = {
-    "thenga": "🥥",
-    "chaya": "☕",
-    "amma": "❤️",
-    "exam": "💀"
+
+    "thenga": {
+        emoji: "🥥",
+        message: "THENGAAAA!"
+    },
+
+    "chaya": {
+        emoji: "☕",
+        message: "Chaya time!"
+    },
+
+    "amma": {
+        emoji: "❤️",
+        message: "Ente poraali!"
+    },
+
+    "achan": {
+        emoji: "❤️",
+        message: "Achan mittayi vedicharm!"
+    },
+
+    "chechi": {
+        emoji: "🐒",
+        message: "Awwww!"
+    },
+
+    "chettan": {
+        emoji: "🐒",
+        message: "Awwww!"
+    },
+
+    "aniyan": {
+        emoji: "🐒",
+        message: "Awwww!"
+    },
+
+    "aniyathi": {
+        emoji: "🐒",
+        message: "Awwww!"
+    },
+
+    "appooppan": {
+        emoji: "❤️",
+        message: "Awwww!"
+    },
+
+    "ammumma": {
+        emoji: "❤️",
+        message: "Awwww!"
+    },
+
+    "exam": {
+        emoji: "💀",
+        message: "aaare kettikkaana?!"
+    },
+
+    "assignment": {
+        emoji: "💀",
+        message: "assignmento athokke veno?"
+    }
+
 };
 
 
-// ------------------------------------
-// MODULE 2 — CREATE GOBLIN
-// ------------------------------------
+// ===============================
+// CREATE GOBLIN
+// ===============================
 
 function createGoblin() {
 
@@ -20,105 +77,286 @@ function createGoblin() {
         return;
     }
 
-    const goblin = document.createElement("div");
-    goblin.id = "manglish-goblin";
+    const goblinContainer =
+        document.createElement("div");
 
-    const bubble = document.createElement("div");
-    bubble.id = "goblin-bubble";
+    goblinContainer.id =
+        "manglish-goblin";
 
-    const image = document.createElement("img");
-    image.id = "goblin-character";
+    goblinContainer.innerHTML = `
 
-    image.src = chrome.runtime.getURL("assets/goblin.png");
-    image.alt = "Manglish Goblin";
+        <div id="goblin-bubble"></div>
 
-    goblin.appendChild(bubble);
-    goblin.appendChild(image);
+        <div id="goblin-emoji"></div>
 
-    document.body.appendChild(goblin);
+        <img
+            id="goblin-character"
+            src="${chrome.runtime.getURL("assets/goblin.png")}"
+            alt="Manglish Goblin"
+        >
 
-    introduceGoblin();
+        <div id="goblin-learn">
+
+            <button id="goblin-thanks">
+                Thank uuu
+            </button>
+
+        </div>
+
+    `;
+
+    document.body.appendChild(
+        goblinContainer
+    );
+
+    console.log("Goblin created");
 }
 
 
-// ------------------------------------
+// ===============================
 // SHOW MESSAGE
-// ------------------------------------
+// ===============================
+
+let messageTimer;
 
 function showMessage(message) {
 
-    const bubble = document.getElementById("goblin-bubble");
+    const bubble =
+        document.getElementById(
+            "goblin-bubble"
+        );
 
     if (!bubble) {
         return;
     }
 
-    bubble.textContent = message;
-    bubble.classList.add("visible");
+    bubble.textContent =
+        message;
+
+    bubble.classList.add(
+        "visible"
+    );
+
+    clearTimeout(
+        messageTimer
+    );
+
+    messageTimer =
+        setTimeout(() => {
+
+            bubble.classList.remove(
+                "visible"
+            );
+
+        }, 2000);
 }
 
 
-// ------------------------------------
-// GOBLIN INTRODUCTION
-// ------------------------------------
+// ===============================
+// SHOW EMOJI
+// ===============================
 
-function introduceGoblin() {
+let emojiTimer;
 
-    setTimeout(() => {
-        showMessage("Hey! I'm your Manglish Goblin.");
-    }, 500);
+function showEmoji(emoji) {
+
+    const emojiElement =
+        document.getElementById(
+            "goblin-emoji"
+        );
+
+    if (!emojiElement) {
+        return;
+    }
+
+    emojiElement.textContent =
+        emoji;
+
+    emojiElement.classList.add(
+        "visible"
+    );
+
+    clearTimeout(
+        emojiTimer
+    );
+
+    emojiTimer =
+        setTimeout(() => {
+
+            emojiElement.classList.remove(
+                "visible"
+            );
+
+        }, 2000);
 }
 
 
-// ------------------------------------
-// MODULE 3 — DETECT WORDS
-// ------------------------------------
+// ===============================
+// UNKNOWN WORD
+// ===============================
 
-document.addEventListener("input", function(event) {
+function showLearningRequest() {
 
-    const element = event.target;
+    const bubble =
+        document.getElementById(
+            "goblin-bubble"
+        );
 
-    // Only watch text fields
+    const learnBox =
+        document.getElementById(
+            "goblin-learn"
+        );
+
+    const thanksButton =
+        document.getElementById(
+            "goblin-thanks"
+        );
+
     if (
-        element.tagName !== "INPUT" &&
-        element.tagName !== "TEXTAREA"
+        !bubble ||
+        !learnBox ||
+        !thanksButton
     ) {
         return;
     }
 
-    const text = element.value;
+    bubble.innerHTML = `
+        <strong>What's that word?</strong><br>
+        Can you tell Ash and Anamika to teach me?
+    `;
 
-    // --------------------------------
-    // CURRENT WORD
-    // --------------------------------
+    bubble.classList.add(
+        "visible"
+    );
 
-    const words = text.trim().split(/\s+/);
+    learnBox.style.display =
+        "block";
 
-    const currentWord = words[words.length - 1];
+    thanksButton.onclick =
+        function () {
 
-    console.log("Current word:", currentWord);
+            bubble.classList.remove(
+                "visible"
+            );
+
+            learnBox.style.display =
+                "none";
+        };
+}
 
 
-    // --------------------------------
-    // COMPLETED WORD
-    // --------------------------------
+// ===============================
+// DETECT TYPING
+// ===============================
 
-    if (text.endsWith(" ")) {
+document.addEventListener(
+    "input",
+    function (event) {
 
-        const completedWord = currentWord;
+        const element =
+            event.target;
 
-        console.log("Completed word:", completedWord);
+        if (
+            element.tagName !== "INPUT" &&
+            element.tagName !== "TEXTAREA"
+        ) {
+            return;
+        }
+
+        const text =
+            element.value;
+
+        console.log(
+            "Current text:",
+            text
+        );
+
+
+        // Only react when
+        // user presses space
+        if (!text.endsWith(" ")) {
+            return;
+        }
+
+
+        // Remove the trailing space
+        const textWithoutSpace =
+            text.trim();
+
+
+        // Get the last completed word
+        const words =
+            textWithoutSpace.split(/\s+/);
+
+
+        const completedWord =
+            words[words.length - 1]
+                .toLowerCase();
+
+
+        console.log(
+            "Completed word:",
+            completedWord
+        );
+
+
+        // ===============================
+        // CHECK DICTIONARY
+        // ===============================
+
+        const response =
+            goblinDictionary[
+                completedWord
+            ];
+
+
+        if (response) {
+
+            console.log(
+                "Goblin knows:",
+                completedWord
+            );
+
+            showEmoji(
+                response.emoji
+            );
+
+            showMessage(
+                response.message
+            );
+
+        } else {
+
+            console.log(
+                "Goblin doesn't know:",
+                completedWord
+            );
+
+            showLearningRequest();
+        }
+
     }
-});
+);
 
-// ------------------------------------
-// LISTEN FOR GOBLIN ACTIVATION
-// ------------------------------------
 
-chrome.runtime.onMessage.addListener((message) => {
+// ===============================
+// ACTIVATE GOBLIN
+// ===============================
 
-    if (message.action === "activateGoblin") {
-        createGoblin();
+chrome.runtime.onMessage.addListener(
+    function (message) {
+
+        if (
+            message.action ===
+            "activateGoblin"
+        ) {
+
+            createGoblin();
+
+            showMessage(
+                "Hiii! I'm your Manglish Goblin!"
+            );
+        }
+
     }
-
-});
+);
