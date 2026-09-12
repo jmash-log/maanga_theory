@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="Screenshot_2026-09-12_16-01-15" src="https://github.com/user-attachments/assets/3d3e1890-ea3c-4561-ace8-e8afbf229299" /># Mallu Goblin 
+# Mallu Goblin 
 
 ## Basic Details
 
@@ -117,6 +117,8 @@ For Software:
 *The Goblin encounters an unknown word and asks the user to teach it.*
 
 # Diagrams
+
+<img width="1536" height="1024" alt="WhatsApp Image 2026-09-12 at 4 09 46 PM" src="https://github.com/user-attachments/assets/c50976cf-e850-4ed8-a653-de3e29dab357" />
 
 *The workflow shows how the extension is activated, detects typed words, checks the Manglish dictionary, and produces either a Goblin reaction or an unknown-word response.*
 
